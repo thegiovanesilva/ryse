@@ -1,0 +1,19 @@
+table {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+td {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+th {
+    text-align: center;
+}
+
+tr {
+    margin-right: auto;
+    margin-left: auto;
+}
