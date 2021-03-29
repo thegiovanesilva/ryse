@@ -1,3 +1,13 @@
+DROP DATABASE IF EXISTS ryse;
+
+CREATE DATABASE ryse DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+USE ryse;
+
+DROP USER IF EXISTS 'admryse'@'localhost';
+CREATE USER 'admryse'@'localhost' IDENTIFIED BY '12345';
+GRANT SELECT, INSERT, UPDATE, DELETE ON ryse.* TO 'admryse'@'localhost';
+
 DROP TABLE IF EXISTS tarefa_reps;
 DROP TABLE IF EXISTS tarefas;
 
@@ -12,7 +22,7 @@ CREATE TABLE tarefas (
 
 CREATE TABLE tarefa_reps (
     tarefa_id BIGINT UNSIGNED NOT NULL,
-    dia CHAR(3) NOT NULL UNIQUE,
+    dia CHAR(3) NOT NULL,
     CONSTRAINT pk_tarefas_reps PRIMARY KEY (tarefa_id,dia),
     CONSTRAINT fk_tarefas_reps_tarefas FOREIGN KEY (tarefa_id) REFERENCES tarefas (id)
 );
