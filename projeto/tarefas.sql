@@ -15,3 +15,9 @@ INSERT INTO tarefa_reps (tarefa_id, dia) VALUES (0,'ter');
 --Remover tarefa
 DELETE FROM tarefa_reps WHERE tarefa_id=0;
 DELETE FROM tarefas WHERE id=0;
+
+--Listar tarefas
+SELECT * FROM tarefas t LEFT JOIN tarefa_reps tr ON tr.tarefa_id=t.id;
+
+--Listar uma tarefa
+SELECT * FROM tarefas t LEFT JOIN tarefa_reps tr ON tr.tarefa_id=t.id WHERE t.id=0;
