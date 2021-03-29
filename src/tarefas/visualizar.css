@@ -2,7 +2,12 @@ ol{
     margin-left: auto;
 }
 
-.visualizar-tarefas li{
+.screen{
+    width: 100%;
+    margin-top: 0%;
+}
+
+.screen li{
     padding: 1%;
     margin: 10px;
     font-size: 25pt;
@@ -10,4 +15,16 @@ ol{
 
 h1{
     margin: auto;
+}
+
+.tarefas-do-dia{
+    width: 50%;
+    float: left;
+
+}
+
+.tarefas-gerais{
+    width: 50%;
+    float: left;
+    
 }
