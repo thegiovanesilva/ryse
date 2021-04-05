@@ -1,21 +1,21 @@
 <?php include("../includes/header.php") ?>
 
-<!-- Bootstrap Date-Picker Plugin -->
+<!--n Bootstrap Date-Picker Plugin -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
 <link rel="stylesheet" href="criar.css"/>
 
 <main class="container">
-    <form>
+    <form method="post" action="confirma.php">
         <div class="mb-3">
             <label for="name" class="form-label">Nome da Tarefa</label>
-            <input type="text" name="nome" class="form-control" id="name">
+            <input type="text" name="nome" class="form-control" id="name" required>
         </div>
 
         <div class="mb-3">
             <label for="descricao" class="form-label">Descrição</label>
-            <input type="text" name="descricao" class="form-control" id="descricao">
+            <input type="text" name="descricao" class="form-control" id="descricao" required>
         </div>
 
         <!-- Definição do prazo -->

@@ -16,7 +16,10 @@
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="/tarefas/criar.php">Criar</a></li>
                     <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="/tarefas/criar.php">Editar Tarefas</a></li>
+                    <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="/tarefas/visualizar.php">Visualizar</a></li>
+                    
                 </ul>
             </li>
             <li>

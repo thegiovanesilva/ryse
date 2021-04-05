@@ -17,3 +17,19 @@ tr {
     margin-right: auto;
     margin-left: auto;
 }
+
+.confirma{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-top: 5%;
+}
+img{
+    width: 150px;
+    height: 150px;
+}
+#texto{
+    font-size: 50;
+}

@@ -21,14 +21,14 @@ class Tarefa {
             foreach ($repeticao as $rep) {
                 $stmt = $this->conexao->prepare("INSERT INTO tarefa_reps (tarefa_id,dia) VALUES (?,?)");
                 $stmt->bind_param("is",$result,$rep);
-                $result1 = $this->conexao->execute($stmt);
+                $result1 = $this->conexao->execute($tstm);
                 if ($result1==-1) {
                     $this->conexao->query("rollback");
                     return "Falha no cadastro";
                 }
             }
             $this->conexao->query("commit");
-            return "Tarefa criada com sucesso!";
+            return "Tarefa criada com sucesso";
         }
 
         //Tarefa com prazo único
@@ -56,7 +56,7 @@ class Tarefa {
         $this->conexao->query("begin");
         //atualiza tarefa simples
         $stmt = $this->conexao->prepare("UPDATE tarefas SET nome=?,descricao=?,data_limite=?,data_fim=? WHERE id=?");
-        $stmt->bind_param("ssssi", $nome, $descricao, $data_limite, $data_fim, $id);
+        $stmt->bind_param(" ", $nome, $descricao, $data_limite, $data_fim, $id);
         $result = $this->conexao->execute($stmt);
         if ($result==-1) {
             return "Falha ao atualizar";
