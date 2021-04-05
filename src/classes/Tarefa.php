@@ -115,7 +115,7 @@ class Tarefa {
     }
 }
 
-$tar = new Tarefa();
+//$tar = new Tarefa();
 //print($tar->novaTarefa("Tarefa teste", "Teste teste teste", date("2021-03-29"), ['seg']));
 //print($tar->apagarTarefa(7));
 //print($tar->atualizarTarefa(7, "Tarefa teste 2", "Teste teste teste", NULL, date("2021-03-29"), ['ter','qua']));
