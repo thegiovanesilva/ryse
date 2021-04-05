@@ -12,6 +12,10 @@
                 <input type="text" id="texto" value="Hora de trabalhar" disabled>            
 
             <input type="button" onClick=start() id="botao" value="Iniciar"/>
+
+            <span value="Hora de trabalhar">Você Já fez:</span>
+
+            <div id="contador"></div>
         </div>
     </main>
     <script src="contador.js"></script>
