@@ -20,7 +20,7 @@
                 </ul>
             </li>
             <li>
-                <a class="nav-link active" aria-current="page" href="/contador.php">Contador</a>
+                <a class="nav-link active" aria-current="page" href="/contador/">Contador</a>
             </li>
         </ul>
         </div>

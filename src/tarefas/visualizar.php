@@ -1,6 +1,34 @@
 
 <link rel="stylesheet" href="visualizar.css">
+<?php
+    require_once ("../classes/Tarefa.php");
+    $tarefa = new Tarefa();
+    $res = $tarefa->buscarTarefas();
+?>
+
 <?php include("../includes/header.php") ?>
+    <script>
+        var tarefas_ret = {
+        <?php
+            foreach ($res as $key=>$value) {
+                echo $key . ": {";
+                echo "nome: '" . $value["nome"] . "',";
+                echo "descricao: '" . $value["descricao"] . "',";
+                if (!empty($value["data_limite"])) echo "data_limite: '" . $value["data_limite"] . "',";
+                if (!empty($value["data_fim"])) echo "data_fim: '" . $value["data_fim"] . "',";
+                if (!empty($value["repete"])) {
+                    echo "repete: [";
+                    foreach ($value["repete"] as $r) {
+                        echo "'". $r. "',";
+                    }
+                    echo "]";
+                }
+                
+                echo "},\n";
+            }
+        ?>
+        }
+    </script>
     <main>
         <div class="screen">
         <div class="tarefas-do-dia">
@@ -83,9 +111,9 @@ foreach($itens as $e){
     else if(!$e->repete || $e->repete == null){
         echo "$e->nome<br> $e->descricao<br> $e->data_limite<br> $e->data_fim<br>$e->repete<br>";
     }
-    else 
+    else {
         echo "não existem tarefas cadastradas!";
-    
+    }
 ?>
 
 </script>
