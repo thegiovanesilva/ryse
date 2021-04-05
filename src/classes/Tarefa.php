@@ -104,8 +104,10 @@ class Tarefa {
                 $result[$r["id"]]["descricao"]=$r["descricao"];
                 $result[$r["id"]]["data_limite"]=$r["data_limite"];
                 $result[$r["id"]]["data_fim"]=$r["data_fim"];
-                $result[$r["id"]]["repete"]=array();
-                $result[$r["id"]]["repete"][]=$r["dia"];
+                if (!empty($r["dia"])) {
+                    $result[$r["id"]]["repete"]=array();
+                    $result[$r["id"]]["repete"][]=$r["dia"];
+                }
             }
             else {
                 $result[$r["id"]]["repete"][]=$r["dia"];
