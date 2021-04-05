@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="visualizar.css">
 
+<link rel="stylesheet" href="visualizar.css">
 <?php include("../includes/header.php") ?>
     <main>
         <div class="screen">
@@ -67,5 +67,28 @@
                 <ol>
             </div>
 </div>
+
+
+<script>
+<?
+var hoje = data.getDay(); // 0-6 (zero=domingo)
+var compare = {'dom':0, 'seg':1, 'ter':2, 
+                'qua':3, 'qui':4, 'sex':5, 'sab':6};                
+$itens = $tarefas_ret; 
+ 
+foreach($itens as $e){
+    if($e->repete && compare[$e->repete] == hoje){
+        echo "$e->nome<br> $e->descricao<br> $e->data_limite<br> $e->data_fim<br>$e->repete<br>";
+    }
+    else if(!$e->repete || $e->repete == null){
+        echo "$e->nome<br> $e->descricao<br> $e->data_limite<br> $e->data_fim<br>$e->repete<br>";
+    }
+    else 
+        echo "não existem tarefas cadastradas!";
+    
+?>
+
+</script>
+
     </main>
 <?php include("../includes/footer.php") ?>
