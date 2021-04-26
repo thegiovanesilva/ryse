@@ -9,6 +9,7 @@ CREATE USER 'admryse'@'localhost' IDENTIFIED BY '12345';
 GRANT SELECT, INSERT, UPDATE, DELETE ON ryse.* TO 'admryse'@'localhost';
 
 DROP TABLE IF EXISTS tarefa_reps;
+DROP TABLE IF EXISTS intervalos;
 DROP TABLE IF EXISTS tarefas;
 
 CREATE TABLE tarefas (
@@ -25,4 +26,12 @@ CREATE TABLE tarefa_reps (
     dia CHAR(3) NOT NULL,
     CONSTRAINT pk_tarefas_reps PRIMARY KEY (tarefa_id,dia),
     CONSTRAINT fk_tarefas_reps_tarefas FOREIGN KEY (tarefa_id) REFERENCES tarefas (id)
+);
+
+CREATE TABLE intervalos (
+    tarefa_id BIGINT UNSIGNED NOT NULL,
+    dia DATE NOT NULL,
+    quantidade INTEGER NOT NULL,
+    CONSTRAINT pk_intervalo PRIMARY KEY (tarefa_id,dia),
+    CONSTRAINT fk_tarefas_intervalos FOREIGN KEY (tarefa_id) REFERENCES tarefas (id)
 );
