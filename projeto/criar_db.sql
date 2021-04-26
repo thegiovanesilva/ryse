@@ -18,6 +18,7 @@ CREATE TABLE tarefas (
     descricao TEXT NOT NULL,
 	data_limite DATE,
 	data_fim DATE,
+    intervalos_estimados INTEGER NOT NULL,
     CONSTRAINT pk_tarefas PRIMARY KEY (id)
 );
 
