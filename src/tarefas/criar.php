@@ -18,6 +18,11 @@
             <input type="text" name="descricao" class="form-control" id="descricao" required>
         </div>
 
+        <div class="mb-3">
+            <label for="intervalos_estimados" class="form-label">Intervalos estimados</label>
+            <input type="number" name="intervalos_estimados" class="form-control" id="intervalos_estimados" value="1" required>
+        </div>
+
         <!-- Definição do prazo -->
         <div class="form-check">
             <input onchange="alternar_prazo();" class="form-check-input" type="radio" name="prazo" value="data-limite" id="data-limite" checked>
