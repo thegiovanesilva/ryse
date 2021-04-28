@@ -1,30 +1,41 @@
-ol{
-    margin-left: auto;
-}
-
-.screen{
+.tela{
     width: 100%;
-    margin-top: 0%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.tarefas{
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.screen li{
-    padding: 1%;
-    margin: 10px;
-    font-size: 25pt;
+.lista {
+    width: 100%;
+    list-style-type: none;
 }
-
-h1{
-    margin: auto;
+.lista li{
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5)
 }
-
-.tarefas-do-dia{
-    width: 50%;
-    float: left;
-
+.titulo{
+    font-family: 'Times New Roman', Times, serif;
 }
-
-.tarefas-gerais{
-    width: 50%;
-    float: left;
-    
+.icon{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+.button{
+    border: none;
+    background-color: transparent;
+}
+#edit:hover{
+    color:rgb(8, 255, 8);
+}
+#del:hover{
+    color:red;
 }

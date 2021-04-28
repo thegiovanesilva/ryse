@@ -21,7 +21,7 @@ class Tarefa {
             foreach ($repeticao as $rep) {
                 $stmt = $this->conexao->prepare("INSERT INTO tarefa_reps (tarefa_id,dia) VALUES (?,?)");
                 $stmt->bind_param("is",$result,$rep);
-                $result1 = $this->conexao->execute($tstm);
+                $result1 = $this->conexao->execute($stmt);
                 if ($result1==-1) {
                     $this->conexao->query("rollback");
                     return "Falha no cadastro";
