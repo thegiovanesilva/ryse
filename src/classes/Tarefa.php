@@ -20,7 +20,7 @@ class Tarefa {
             }
             foreach ($repeticao as $rep) {
                 $stmt = $this->conexao->prepare("INSERT INTO tarefa_reps (tarefa_id,dia) VALUES (?,?)");
-                $stmt->bind_param("is",$result,$rep);
+                $stmt->bind_param("si",$result,$rep);
                 $result1 = $this->conexao->execute($stmt);
                 if ($result1==-1) {
                     $this->conexao->query("rollback");
