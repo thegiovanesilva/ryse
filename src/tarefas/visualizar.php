@@ -17,8 +17,8 @@
 						$limit = $value['data_limite'] != NULL? new DateTime(date($value['data_limite'])) : NULL;
 
 						if ( $limit != NULL && ($today != $limit) || isset($value['repete']) && array_filter($value['repete'], function($valor) { 
-							return $valor != date('l'); 
-						}) == [] || $value['data_limite'] != NULL && $value['data_fim'] != NULL ) { 
+							return $valor == substr(date('l'),0,3); 
+						}) == [] ) { 
 							continue; 
 						}
 
@@ -38,7 +38,8 @@
                         if (isset($value['data_fim']) && $value['data_fim'] != 'null') {
                             echo ("<p>Data finalização: ".date("d/m/Y",  strtotime($value['data_fim']))."</p>");
                         }
-                        if (isset($value['repete']) && $value['repete'] != 'null'){ 
+                        if (!empty($value['repete'])){
+
                             $tmp = '["'.$id.'","'.$value['nome'].'","'.$value['descricao'].'","'.$value['data_limite'].'","'.$value['data_fim'].'"'; 
                             $var = ',["';
                             $cont = 1;
@@ -50,7 +51,7 @@
                             }
                             $tmp .= $var;
                         }else{
-                            $tmp = '["'.$id.'","'.implode('","', $value).'"'; 
+                            $tmp = '["'.$id.'","'.join('","', $value).'"'; 
                         }
                         $tmp .= ']';
 
@@ -74,9 +75,9 @@
 						$today = new DateTime(date('Y-m-d'));
 						$limit = $value['data_limite'] != NULL? new DateTime(date($value['data_limite'])) : NULL;
 
-						if ( $limit != NULL && ($today == $limit) || isset($value['repete']) && array_filter($value['repete'], function($valor) { 
-							return $valor != date('l'); 
-						}) != [] || $value['data_limite'] == NULL && $value['data_fim'] == NULL ) { 
+						if ( $limit != NULL && ($today != $limit) || isset($value['repete']) && array_filter($value['repete'], function($valor) { 
+							return $valor == substr(date('l'),0,3); 
+						}) != [] ) { 
 							continue; 
 						}
 
@@ -113,8 +114,8 @@
                         $tmp .= ']';
 
                         echo ("<div class='icon'>");
-                            echo ("<a href='atualizar.php?id=$id'><i class='material-icons'>edit</i></a>");
-                            echo ("<a href='apagar.php?id=$id'><i class='material-icons'>delete</i></a>"); 
+                            echo ("<a class='edit' href='atualizar.php?id=$id'><i class='material-icons'>edit</i></a>");
+                            echo ("<a class='del' href='apagar.php?id=$id'><i class='material-icons'>delete</i></a>"); 
                         echo ("</div>");
                         echo ("</li>");
                     }

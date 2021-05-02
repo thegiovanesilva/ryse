@@ -29,13 +29,13 @@
     display: flex;
     justify-content: flex-end;
 }
-.button{
-    border: none;
-    background-color: transparent;
+.icon a{
+    text-decoration: none;
+    color: black;
 }
-#edit:hover{
+.edit:hover{
     color:rgb(8, 255, 8);
 }
-#del:hover{
+.del:hover{
     color:red;
 }

@@ -84,25 +84,25 @@
                 </tr>
                 <tr>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="dom" id="check-domingo" <?= (in_array('dom', $t_ret['repete'])) ? "checked" : ""; ?> >
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="Sun" id="check-domingo" <?= (in_array('Sun', $t_ret['repete'])) ? "checked" : ""; ?> >
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="seg" id="check-segunda" <?= (in_array('seg', $t_ret['repete'])) ? "checked" : ""; ?>>
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="Mon" id="check-segunda" <?= (in_array('Mon', $t_ret['repete'])) ? "checked" : ""; ?>>
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="ter" id="check-terca" <?= (in_array('ter', $t_ret['repete'])) ? "checked" : ""; ?>>
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="Tue" id="check-terca" <?= (in_array('Tue', $t_ret['repete'])) ? "checked" : ""; ?>>
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="qua" id="check-quarta" <?= (in_array('qua', $t_ret['repete'])) ? "checked" : ""; ?>>
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="Wed" id="check-quarta" <?= (in_array('Wed', $t_ret['repete'])) ? "checked" : ""; ?>>
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="qui" id="check-quinta" <?= (in_array('qui', $t_ret['repete'])) ? "checked" : ""; ?>>
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="Thu" id="check-quinta" <?= (in_array('Thu', $t_ret['repete'])) ? "checked" : ""; ?>>
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="sex" id="check-sexta" <?= (in_array('sex', $t_ret['repete'])) ? "checked" : ""; ?>>
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="Fri" id="check-sexta" <?= (in_array('Fri', $t_ret['repete'])) ? "checked" : ""; ?>>
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="sab" id="check-sabado" <?= (in_array('sab', $t_ret['repete'])) ? "checked" : ""; ?>>
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="Sat" id="check-sabado" <?= (in_array('Sat', $t_ret['repete'])) ? "checked" : ""; ?>>
                     </td>
                 </tr>
             </table>

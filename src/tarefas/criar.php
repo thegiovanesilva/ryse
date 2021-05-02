@@ -59,25 +59,25 @@
                 </tr>
                 <tr>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="dom" id="check-domingo">
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="Sun" id="check-domingo">
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="seg" id="check-segunda">
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="Mon" id="check-segunda">
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="ter" id="check-terca">
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="Tue" id="check-terca">
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="qua" id="check-quarta">
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="Wed" id="check-quarta">
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="qui" id="check-quinta">
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="Thu" id="check-quinta">
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="sex" id="check-sexta">
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="Fri" id="check-sexta">
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="sab" id="check-sabado">
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="Sat" id="check-sabado">
                     </td>
                 </tr>
             </table>
