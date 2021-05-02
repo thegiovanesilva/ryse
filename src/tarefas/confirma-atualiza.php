@@ -6,6 +6,7 @@
     $tarefa = new Tarefa();
     
     // Validação de dados
+    $id = $_GET['id'];
     $nome = $_POST['nome'];
     $descricao = $_POST['descricao'];
     $metodo = $_POST['prazo'];
@@ -19,14 +20,13 @@
         $ano = substr($prazo,6);
         $prazo = date($ano."/".$mes."/".$dia);
     }
-    
     $string_retorno = "";
 
     // Se o que vier do html for uma data-recorrente, então envia null como prazo limite
     // Se o que vier do html for uma data-limite, então envia null como prazo recorrente
-    $string_retorno = (is_array($prazo)) ? $tarefa->novaTarefa($nome, $descricao, NULL, $prazo, $intervalos) : $tarefa->novaTarefa($nome, $descricao, $prazo, [], $intervalos);
+    $string_retorno = (is_array($prazo)) ? $tarefa->atualizarTarefa($id, $nome, $descricao, NULL, NULL, $prazo, $intervalos) : $tarefa->atualizarTarefa($id, $nome, $descricao, $prazo, NULL, [], $intervalos);
 
-    if ($string_retorno == "Tarefa criada com sucesso"){
+    if ($string_retorno == "Tarefa atualizada com sucesso!"){
         $img = "../imgs/noterror.png";
     }else{
         $img = "../imgs/error.png";

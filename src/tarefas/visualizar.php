@@ -55,8 +55,8 @@
                         $tmp .= ']';
 
                         echo ("<div class='icon'>");
-                            echo ("<button class='button' id='edit' onclick='editar($tmp)'><i class='material-icons'>edit</i></button>");
-                            echo ("<button class='button' id='del'><i class='material-icons'>delete</i></button"); 
+                            echo ("<a href='atualizar.php?id=$id'><i class='material-icons'>edit</i></a>");
+                            echo ("<a href='apagar.php?id=$id'><i class='material-icons'>delete</i></a>"); 
                         echo ("</div>");
                         echo ("</li>");
                     }
@@ -113,8 +113,8 @@
                         $tmp .= ']';
 
                         echo ("<div class='icon'>");
-                            echo ("<button class='button' id='edit' onclick='editar($tmp)'><i class='material-icons'>edit</i></button>");
-                            echo ("<button class='button' id='del'><i class='material-icons'>delete</i></button"); 
+                            echo ("<a href='atualizar.php?id=$id'><i class='material-icons'>edit</i></a>");
+                            echo ("<a href='apagar.php?id=$id'><i class='material-icons'>delete</i></a>"); 
                         echo ("</div>");
                         echo ("</li>");
                     }

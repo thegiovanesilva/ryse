@@ -20,7 +20,7 @@ class Tarefa {
             }
             foreach ($repeticao as $rep) {
                 $stmt = $this->conexao->prepare("INSERT INTO tarefa_reps (tarefa_id,dia) VALUES (?,?)");
-                $stmt->bind_param("si",$result,$rep);
+                $stmt->bind_param("is",$result,$rep);
                 $result1 = $this->conexao->execute($stmt);
                 if ($result1==-1) {
                     $this->conexao->query("rollback");
@@ -108,6 +108,7 @@ class Tarefa {
                 $result[$r["id"]]["descricao"]=$r["descricao"];
                 $result[$r["id"]]["data_limite"]=$r["data_limite"];
                 $result[$r["id"]]["data_fim"]=$r["data_fim"];
+                $result[$r["id"]]["intervalos_estimados"]=$r["intervalos_estimados"];
                 if (!empty($r["dia"])) {
                     $result[$r["id"]]["repete"]=array();
                     $result[$r["id"]]["repete"][]=$r["dia"];

@@ -42,7 +42,7 @@
         <div id="data-limite-div">
             <div class="form-group"> <!-- Date input -->
                 <label class="control-label" for="date">Date</label>
-                <input class="form-control" id="date" name="date" placeholder="DD/MM/YYY" type="text"/>
+                <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text"/>
             </div>
         </div>
 
@@ -59,25 +59,25 @@
                 </tr>
                 <tr>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="domingo" id="check-domingo">
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="dom" id="check-domingo">
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="segunda" id="check-segunda">
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="seg" id="check-segunda">
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="terca" id="check-terca">
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="ter" id="check-terca">
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="quarta" id="check-quarta">
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="qua" id="check-quarta">
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="quinta" id="check-quinta">
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="qui" id="check-quinta">
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="sexta" id="check-sexta">
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="sex" id="check-sexta">
                     </td>
                     <td>
-                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="sabado" id="check-sabado">
+                        <input class="form-check-input" type="checkbox" name="recorrente[]" value="sab" id="check-sabado">
                     </td>
                 </tr>
             </table>
