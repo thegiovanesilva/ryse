@@ -20,7 +20,7 @@
 
         <div class="mb-3">
             <label for="intervalos_estimados" class="form-label">Intervalos estimados</label>
-            <input type="number" name="intervalos_estimados" class="form-control" id="intervalos_estimados" value="1" required>
+            <input type="number" name="intervalos_estimados" class="form-control" id="intervalos_estimados" min="1" value="1" required>
         </div>
 
         <!-- Definição do prazo -->

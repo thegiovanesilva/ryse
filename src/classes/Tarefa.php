@@ -7,7 +7,7 @@ class Tarefa {
         $this->conexao = new BD();
     }
 
-    function novaTarefa($nome, $descricao, $data_limite, $repeticao, $intervalos_estimados=0) {
+    function novaTarefa($nome, $descricao, $data_limite, $repeticao, $intervalos_estimados) {
         //Tarefa com prazo recorente
         if (count($repeticao)) {
             $this->conexao->query("begin");
@@ -56,7 +56,7 @@ class Tarefa {
         return "Tarefa apagada com sucesso!";
     }
 
-    function atualizarTarefa($id, $nome, $descricao, $data_limite, $data_fim, $repeticao, $intervalos_estimados=0) {
+    function atualizarTarefa($id, $nome, $descricao, $data_limite, $data_fim, $repeticao, $intervalos_estimados) {
         $this->conexao->query("begin");
         //atualiza tarefa simples
         $stmt = $this->conexao->prepare("UPDATE tarefas SET nome=?,descricao=?,data_limite=?,data_fim=?,intervalos_estimados=? WHERE id=?");
