@@ -31,13 +31,17 @@
 }
 .icon a{
     text-decoration: none;
+    margin-inline: 2px;
     color: black;
+}
+.done:hover{
+    color:#08ff08;
 }
 .contador:hover{
     color:#ff7f08;
 }
 .edit:hover{
-    color:rgb(8, 255, 8);
+    color:rgb(255, 8, 222);
 }
 .del:hover{
     color:red;
