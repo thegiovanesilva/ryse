@@ -1,6 +1,11 @@
 <link href="temporizador.css" rel="stylesheet"/>
 
+<?php $id= isset($_GET['id'])? $_GET['id'] : 'null'; ?>
+
 <?php include("../includes/header.php") ?>
+    <script> 
+        var tarefa_id = <?= $id ?>;
+    </script>
     <main>
         <div class="screen">
             <h1 id="titulo">Temporizador</h1>

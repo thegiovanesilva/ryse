@@ -19,7 +19,7 @@
 
 						if ( $limit != NULL && ($today != $limit) || isset($value['repete']) && array_filter($value['repete'], function($valor) { 
 							return $valor == substr(date('l'),0,3); 
-						}) == [] ) { 
+						}) == []) { 
 							continue; 
 						}
 
@@ -59,8 +59,9 @@
                         $tmp .= ']';
 
                         echo ("<div class='icon'>");
-                            echo ("<a href='atualizar.php?id=$id'><i class='material-icons'>edit</i></a>");
-                            echo ("<a href='apagar.php?id=$id'><i class='material-icons'>delete</i></a>"); 
+                            echo ("<a class='contador' href='../contador/index.php?id=$id'><i class='material-icons'>access_alarms</i></a>");
+                            echo ("<a class='edit' href='atualizar.php?id=$id'><i class='material-icons'>edit</i></a>");
+                            echo ("<a class='del' href='apagar.php?id=$id'><i class='material-icons'>delete</i></a>");
                         echo ("</div>");
                         echo ("</li>");
                     }
@@ -78,9 +79,9 @@
 						$today = new DateTime(date('Y-m-d'));
 						$limit = $value['data_limite'] != NULL? new DateTime(date($value['data_limite'])) : NULL;
 
-						if ( $limit != NULL && ($today != $limit) || isset($value['repete']) && array_filter($value['repete'], function($valor) { 
+						if ( $limit != NULL && ($today == $limit) && isset($value['repete']) && array_filter($value['repete'], function($valor) { 
 							return $valor == substr(date('l'),0,3); 
-						}) != [] ) { 
+						}) != []) { 
 							continue; 
 						}
 
@@ -117,6 +118,7 @@
                         $tmp .= ']';
 
                         echo ("<div class='icon'>");
+                            echo ("<a class='contador' href='../contador/index.php?id=$id'><i class='material-icons'>access_alarms</i></a>");
                             echo ("<a class='edit' href='atualizar.php?id=$id'><i class='material-icons'>edit</i></a>");
                             echo ("<a class='del' href='apagar.php?id=$id'><i class='material-icons'>delete</i></a>"); 
                         echo ("</div>");
