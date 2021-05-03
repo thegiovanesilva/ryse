@@ -54,7 +54,7 @@
             </label>
         </div>
 
-        <input type="text" name="data_fim" value="<?=$t_ret['data_limite']?>" hidden>
+        <input type="text" name="data_fim" value="<?=$t_ret['data_fim']?>" hidden>
 
         <!-- Definição dos dias dos prazos -->
         <br>

@@ -17,9 +17,12 @@
 						$limit = $value['data_limite'] != NULL? new DateTime(date($value['data_limite'])) : NULL;
                         $fim = $value['data_fim'] != NULL? new DateTime(date($value['data_fim'])) : NULL;
 
-						if ( $limit != NULL && ($today != $limit) || isset($value['repete']) && array_filter($value['repete'], function($valor) { 
-							return $valor == substr(date('l'),0,3); 
-						}) == [] || $fim != NULL && ($today == $fim)) { 
+						if ( (
+                            ($limit != NULL && $limit != $today) ||
+                            (isset($value['repete']) && array_search(substr(date('l'),0,3), $value['repete']) == -1) ||
+                            (($limit != NULL && $limit == $today) && ($fim != NULL && $fim == $today)) ||
+                            ((isset($value['repete']) && array_search(substr(date('l'),0,3), $value['repete']) != -1) && ($fim != NULL && $fim == $today))) 
+                        ) {     
 							continue; 
 						}
 
@@ -38,9 +41,11 @@
                         if (isset($value['data_limite']) && $value['data_limite'] != 'null') {
                             echo ("<p>Data limite: ".date("d/m/Y", strtotime($value['data_limite']))."</p>");
                         }
-                        if (isset($value['data_fim']) && $value['data_fim'] != 'null') {
-                            echo ("<p>Data finalização: ".date("d/m/Y",  strtotime($value['data_fim']))."</p>");
+                        
+                        if (isset($value['data_fim']) && $fim != NULL) {
+                            echo ("<p>Ultima vez atualizada ".date("d/m/Y", strtotime($value['data_fim']))."</p>");
                         }
+
                         if (!empty($value['repete'])){
 
                             $tmp = '["'.$id.'","'.$value['nome'].'","'.$value['descricao'].'","'.$value['data_limite'].'","'.$value['data_fim'].'"'; 
@@ -59,7 +64,7 @@
                         $tmp .= ']';
 
                         echo ("<div class='icon'>");
-                            if ($fim != NULL){ echo ("<a class='done' href='confirma-concluido.php?id=$id'><i class='material-icons'>bookmark_border</i></a>");}
+                            echo ("<a class='done' href='confirma-concluido.php?id=$id'><i class='material-icons'>bookmark_border</i></a>");
                             echo ("<a class='contador' href='../contador/index.php?id=$id'><i class='material-icons'>access_alarms</i></a>");
                             echo ("<a class='edit' href='atualizar.php?id=$id'><i class='material-icons'>edit</i></a>");
                             echo ("<a class='del' href='apagar.php?id=$id'><i class='material-icons'>delete</i></a>");
@@ -81,13 +86,15 @@
 						$today = new DateTime(date('Y-m-d'));
 						$limit = $value['data_limite'] != NULL? new DateTime(date($value['data_limite'])) : NULL;
                         $fim = $value['data_fim'] != NULL? new DateTime(date($value['data_fim'])) : NULL;
-
-						if ( $limit != NULL && ($today == $limit) || isset($value['repete']) && array_filter($value['repete'], function($valor) { 
-							return $valor == substr(date('l'),0,3); 
-						}) != [] || $fim != NULL && ($today != $fim)) { 
+                        
+						if ( !(
+                            ($limit != NULL && $limit != $today) ||
+                            (isset($value['repete']) && array_search(substr(date('l'),0,3), $value['repete']) == -1) ||
+                            (($limit != NULL && $limit == $today) && ($fim != NULL && $fim == $today)) ||
+                            ((isset($value['repete']) && array_search(substr(date('l'),0,3), $value['repete']) != -1) && ($fim != NULL && $fim == $today))) 
+                        ) {     
 							continue; 
 						}
-
 						$tmp = array_filter($value, function($valor) {
                             return $valor == '';
                         });
@@ -101,9 +108,11 @@
                         if (isset($value['data_limite']) && $value['data_limite'] != 'null') {
                             echo ("<p>Data limite: ".date("d/m/Y", strtotime($value['data_limite']))."</p>");
                         }
-                        if (isset($value['data_fim']) && $value['data_fim'] != 'null') {
-                            echo ("<p>Data finalização: ".date("d/m/Y",  strtotime($value['data_fim']))."</p>");
+                       
+                        if (isset($value['data_fim']) && $fim != NULL) {
+                            echo ("<p>Ultima vez atualizada ".date("d/m/Y", strtotime($value['data_fim']))."</p>");
                         }
+
                         if (isset($value['repete']) && $value['repete'] != 'null'){ 
                             $tmp = '["'.$id.'","'.$value['nome'].'","'.$value['descricao'].'","'.$value['data_limite'].'","'.$value['data_fim'].'"'; 
                             $var = ',["';
