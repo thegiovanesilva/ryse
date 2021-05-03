@@ -5,6 +5,7 @@
     require_once ("../classes/Tarefa.php");
     $tarefa = new Tarefa();
     $tarefas = $tarefa->buscarTarefas();
+
     ?>
 
     <main class="tela">
@@ -31,6 +32,8 @@
 
                         echo ("<li><h3>".$value['nome']."</h3>");
                         echo ("<p>".$value['descricao']."</p>");    
+
+                        echo "<p>Intervalos feitos hoje: ".(isset($value["intervalos"]) ? $value["intervalos"] : 0)."/".$value["intervalos_estimados"]."</p>";
 
                         if (isset($value['data_limite']) && $value['data_limite'] != 'null') {
                             echo ("<p>Data limite: ".date("d/m/Y", strtotime($value['data_limite']))."</p>");
