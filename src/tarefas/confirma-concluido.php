@@ -1,25 +1,25 @@
-<link href="criar.css" rel="stylesheet"/>
-
 <?php
     require_once("../classes/Tarefa.php");
 
-    $tarefa = new Tarefa();
-    
-    // Validação de dados
+    if (!isset($_GET['id'])) {
+        header("Location: /tarefas/visualizar.php");
+    }
+
     $id = $_GET['id'];
-    $nome = $_POST['nome'];
-    $descricao = $_POST['descricao'];
-    $metodo = $_POST['prazo'];
-    $intervalos = $_POST['intervalos_estimados'];
-    $data_fim = ((!empty($_POST['data_fim']) && $_POST['data_fim']!='') ? $_POST['data_fim'] : NULL);
-    if ($metodo == 'prazo-recorrente'){
-       $prazo = $_POST['recorrente'];
+
+    $tarefa = new Tarefa();
+    $tarefas = $tarefa->buscarTarefas($id);
+
+    // Validação de dados
+    $nome = $tarefas[$id]['nome'];
+    $descricao = $tarefas[$id]['descricao'];
+    $metodo = $tarefas[$id]['data_limite'];
+    $intervalos = $tarefas[$id]['intervalos_estimados'];
+    $data_fim = date('Y-m-d');
+    if (isset($tarefas[$id]['repete'])){
+       $prazo = $tarefas[$id]['repete'];
     }else{
-        $prazo = $_POST['date'];
-        $dia = substr($prazo,0,2);
-        $mes = substr($prazo,3,2);
-        $ano = substr($prazo,6);
-        $prazo = date($ano."/".$mes."/".$dia);
+        $prazo = $tarefas[$id]['data_limite'];
     }
     $string_retorno = "";
 
@@ -35,6 +35,7 @@
     header('refresh:3; url=visualizar.php');
 
 ?>
+
 <?php include("../includes/header.php") ?>
 
 <link rel="stylesheet" href="criar.css"/>

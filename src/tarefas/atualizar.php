@@ -54,6 +54,8 @@
             </label>
         </div>
 
+        <input type="text" name="data_fim" value="<?=$t_ret['data_limite']?>" hidden>
+
         <!-- Definição dos dias dos prazos -->
         <br>
         <?php if(isset($t_ret['data_limite'])){?>
@@ -66,6 +68,7 @@
                 <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text" value="<?=date("d/m/Y",  strtotime($t_ret['data_limite']))?>"/>
             </div>
         </div>
+
         
         <?php if(isset($t_ret['data_limite'])){ ?>
         <div id="prazo-recorrente-div" hidden>
