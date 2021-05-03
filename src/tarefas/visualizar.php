@@ -5,7 +5,6 @@
     require_once ("../classes/Tarefa.php");
     $tarefa = new Tarefa();
     $tarefas = $tarefa->buscarTarefas();
-
     ?>
 
     <main class="tela">
@@ -16,10 +15,11 @@
                     foreach ($tarefas as $id=>$value) {
 						$today = new DateTime(date('Y-m-d'));
 						$limit = $value['data_limite'] != NULL? new DateTime(date($value['data_limite'])) : NULL;
+                        $fim = $value['data_fim'] != NULL? new DateTime(date($value['data_fim'])) : NULL;
 
 						if ( $limit != NULL && ($today != $limit) || isset($value['repete']) && array_filter($value['repete'], function($valor) { 
 							return $valor == substr(date('l'),0,3); 
-						}) == []) { 
+						}) == [] || $fim != NULL && ($today == $fim)) { 
 							continue; 
 						}
 
@@ -59,6 +59,7 @@
                         $tmp .= ']';
 
                         echo ("<div class='icon'>");
+                            if ($fim != NULL){ echo ("<a class='done' href='confirma-concluido.php?id=$id'><i class='material-icons'>bookmark_border</i></a>");}
                             echo ("<a class='contador' href='../contador/index.php?id=$id'><i class='material-icons'>access_alarms</i></a>");
                             echo ("<a class='edit' href='atualizar.php?id=$id'><i class='material-icons'>edit</i></a>");
                             echo ("<a class='del' href='apagar.php?id=$id'><i class='material-icons'>delete</i></a>");
@@ -79,10 +80,11 @@
                     foreach ($tarefas as $id=>$value) {
 						$today = new DateTime(date('Y-m-d'));
 						$limit = $value['data_limite'] != NULL? new DateTime(date($value['data_limite'])) : NULL;
-                        
+                        $fim = $value['data_fim'] != NULL? new DateTime(date($value['data_fim'])) : NULL;
+
 						if ( $limit != NULL && ($today == $limit) || isset($value['repete']) && array_filter($value['repete'], function($valor) { 
 							return $valor == substr(date('l'),0,3); 
-						}) != []) { 
+						}) != [] || $fim != NULL && ($today != $fim)) { 
 							continue; 
 						}
 
