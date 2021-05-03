@@ -1,7 +1,7 @@
 var iniciou = false;
-var minutos_intervalo = 0.01;
-var minutos_descanso = 0.01;
-var minutos_descanso_longo = 0.01;
+var minutos_intervalo = 25;
+var minutos_descanso = 5;
+var minutos_descanso_longo = 20;
 var cont_intervalos = 0
 
 window.onload = startTimer();

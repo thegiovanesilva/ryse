@@ -75,11 +75,12 @@
             
             <ul class="lista">
                 <?php
+                
                     foreach ($tarefas as $id=>$value) {
 						$today = new DateTime(date('Y-m-d'));
 						$limit = $value['data_limite'] != NULL? new DateTime(date($value['data_limite'])) : NULL;
-
-						if ( $limit != NULL && ($today == $limit) && isset($value['repete']) && array_filter($value['repete'], function($valor) { 
+                        
+						if ( $limit != NULL && ($today == $limit) || isset($value['repete']) && array_filter($value['repete'], function($valor) { 
 							return $valor == substr(date('l'),0,3); 
 						}) != []) { 
 							continue; 
