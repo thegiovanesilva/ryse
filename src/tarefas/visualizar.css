@@ -46,3 +46,20 @@
 .del:hover{
     color:red;
 }
+
+.table {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+}
+.selecionado{
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 14pt;
+    margin: 10px;
+    color: black;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}

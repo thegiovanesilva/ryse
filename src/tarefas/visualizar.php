@@ -5,7 +5,55 @@
     require_once ("../classes/Tarefa.php");
     $tarefa = new Tarefa();
     $tarefas = $tarefa->buscarTarefas();
-    ?>
+
+    function impressao($value, $id, $today, $fim, $tarefasDia = false){
+        $tmp = array_filter($value, function($valor) {
+            return $valor == '';
+        });
+        foreach ($tmp as $key=>$val){
+            $value[$key] = "null";
+        }             
+
+        echo ("<li><h3>".$value['nome']."</h3>");
+        echo ("<p>".$value['descricao']."</p>");    
+
+        echo "<p>Intervalos feitos hoje: ".(isset($value["intervalos"]) ? $value["intervalos"] : 0)."/".$value["intervalos_estimados"]."</p>";
+
+        if (isset($value['data_limite']) && $value['data_limite'] != 'null') {
+            echo ("<p>Data limite: ".date("d/m/Y", strtotime($value['data_limite']))."</p>");
+        }
+        
+        if (isset($value['data_fim']) && $fim != NULL) {
+            echo ("<p>Ultima vez atualizada ".date("d/m/Y", strtotime($value['data_fim']))."</p>");
+        }
+
+        if (!empty($value['repete'])){
+            echo ("<div class='table'>".
+                    ((in_array("Sun", $value['repete']))? "<p class='selecionado' style='background-color: rgb(8, 255, 20);'>D</p>" : "<p class='selecionado' style='background-color: rgb(8, 136, 255);'>D</p>")
+                .
+                    ((in_array("Mon", $value['repete']))? "<p class='selecionado' style='background-color: rgb(8, 255, 20);'>S</p>" : "<p class='selecionado' style='background-color: rgb(8, 136, 255);'>S</p>")
+                .
+                    ((in_array("Tue", $value['repete']))? "<p class='selecionado' style='background-color: rgb(8, 255, 20);'>T</p>" : "<p class='selecionado' style='background-color: rgb(8, 136, 255);'>T</p>")
+                .
+                    ((in_array("Wed", $value['repete']))? "<p class='selecionado' style='background-color: rgb(8, 255, 20);'>Q</p>" : "<p class='selecionado' style='background-color: rgb(8, 136, 255);'>Q</p>")
+                .
+                    ((in_array("Thu", $value['repete']))? "<p class='selecionado' style='background-color: rgb(8, 255, 20);'>Q</p>" : "<p class='selecionado' style='background-color: rgb(8, 136, 255);'>Q</p>")
+                .
+                    ((in_array("Fri", $value['repete']))? "<p class='selecionado' style='background-color: rgb(8, 255, 20);'>S</p>" : "<p class='selecionado' style='background-color: rgb(8, 136, 255);'>S</p>")
+                .
+                    ((in_array("Sat", $value['repete']))? "<p class='selecionado' style='background-color: rgb(8, 255, 20);'>S</p>" : "<p class='selecionado' style='background-color: rgb(8, 136, 255);'>S</p>")
+                ."</div>");
+        }
+
+        echo ("<div class='icon'>");
+            if ($tarefasDia) { echo ("<a class='done' href='confirma-concluido.php?id=$id' title='Concluir'><i class='material-icons'>bookmark_border</i></a>"); }
+            echo ("<a class='contador' href='../contador/index.php?id=$id' title='Abrir temporizador'><i class='material-icons'>access_alarms</i></a>");
+            echo ("<a class='edit' href='atualizar.php?id=$id' title='Editar'><i class='material-icons'>edit</i></a>");
+            echo ("<a class='del' href='apagar.php?id=$id' title='Deletar'><i class='material-icons'>delete</i></a>");
+        echo ("</div>");
+        echo ("</li>");
+    }
+?>
 
     <main class="tela">
         <div class="tarefas">
@@ -25,51 +73,7 @@
                         ) {     
 							continue; 
 						}
-
-						$tmp = array_filter($value, function($valor) {
-                            return $valor == '';
-                        });
-                        foreach ($tmp as $key=>$val){
-                            $value[$key] = "null";
-                        }             
-
-                        echo ("<li><h3>".$value['nome']."</h3>");
-                        echo ("<p>".$value['descricao']."</p>");    
-
-                        echo "<p>Intervalos feitos hoje: ".(isset($value["intervalos"]) ? $value["intervalos"] : 0)."/".$value["intervalos_estimados"]."</p>";
-
-                        if (isset($value['data_limite']) && $value['data_limite'] != 'null') {
-                            echo ("<p>Data limite: ".date("d/m/Y", strtotime($value['data_limite']))."</p>");
-                        }
-                        
-                        if (isset($value['data_fim']) && $fim != NULL) {
-                            echo ("<p>Ultima vez atualizada ".date("d/m/Y", strtotime($value['data_fim']))."</p>");
-                        }
-
-                        if (!empty($value['repete'])){
-
-                            $tmp = '["'.$id.'","'.$value['nome'].'","'.$value['descricao'].'","'.$value['data_limite'].'","'.$value['data_fim'].'"'; 
-                            $var = ',["';
-                            $cont = 1;
-                            foreach ($value['repete'] as $dia){
-                                $var .= $dia;
-                                $var .= $cont < count($value['repete'])? '","' : '"]';
-                                $cont++;
-                                echo ("<p>".$dia."</p>");
-                            }
-                            $tmp .= $var;
-                        }else{
-                            $tmp = '["'.$id.'","'.join('","', $value).'"'; 
-                        }
-                        $tmp .= ']';
-
-                        echo ("<div class='icon'>");
-                            echo ("<a class='done' href='confirma-concluido.php?id=$id'><i class='material-icons'>bookmark_border</i></a>");
-                            echo ("<a class='contador' href='../contador/index.php?id=$id'><i class='material-icons'>access_alarms</i></a>");
-                            echo ("<a class='edit' href='atualizar.php?id=$id'><i class='material-icons'>edit</i></a>");
-                            echo ("<a class='del' href='apagar.php?id=$id'><i class='material-icons'>delete</i></a>");
-                        echo ("</div>");
-                        echo ("</li>");
+                        impressao($value, $id, $today,$fim, true);
                     }
                 ?>  
             </ul>
@@ -95,46 +99,7 @@
                         ) {     
 							continue; 
 						}
-						$tmp = array_filter($value, function($valor) {
-                            return $valor == '';
-                        });
-                        foreach ($tmp as $key=>$val){
-                            $value[$key] = "null";
-                        }             
-
-                        echo ("<li><h3>".$value['nome']."</h3>");
-                        echo ("<p>".$value['descricao']."</p>");    
-
-                        if (isset($value['data_limite']) && $value['data_limite'] != 'null') {
-                            echo ("<p>Data limite: ".date("d/m/Y", strtotime($value['data_limite']))."</p>");
-                        }
-                       
-                        if (isset($value['data_fim']) && $fim != NULL) {
-                            echo ("<p>Ultima vez atualizada ".date("d/m/Y", strtotime($value['data_fim']))."</p>");
-                        }
-
-                        if (isset($value['repete']) && $value['repete'] != 'null'){ 
-                            $tmp = '["'.$id.'","'.$value['nome'].'","'.$value['descricao'].'","'.$value['data_limite'].'","'.$value['data_fim'].'"'; 
-                            $var = ',["';
-                            $cont = 1;
-                            foreach ($value['repete'] as $dia){
-                                $var .= $dia;
-                                $var .= $cont < count($value['repete'])? '","' : '"]';
-                                $cont++;
-                                echo ("<p>".$dia."</p>");
-                            }
-                            $tmp .= $var;
-                        }else{
-                            $tmp = '["'.$id.'","'.implode('","', $value).'"'; 
-                        }
-                        $tmp .= ']';
-
-                        echo ("<div class='icon'>");
-                            echo ("<a class='contador' href='../contador/index.php?id=$id'><i class='material-icons'>access_alarms</i></a>");
-                            echo ("<a class='edit' href='atualizar.php?id=$id'><i class='material-icons'>edit</i></a>");
-                            echo ("<a class='del' href='apagar.php?id=$id'><i class='material-icons'>delete</i></a>"); 
-                        echo ("</div>");
-                        echo ("</li>");
+						impressao($value, $id, $today, $fim);
                     }
                 ?>  
             </ul>
