@@ -9,6 +9,7 @@
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/index.php">Home</a>
             </li>
+            <?php if (isset($_SESSION['id'])) { ?>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Tarefas
@@ -20,6 +21,7 @@
                     
                 </ul>
             </li>
+            <?php } ?>
             <li>
                 <a class="nav-link active" aria-current="page" href="/contador/">Contador</a>
             </li>
