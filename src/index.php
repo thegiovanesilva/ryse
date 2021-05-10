@@ -14,23 +14,31 @@
     Fusce nec consequat neque, ut porttitor lacus. Vivamus arcu sapien, viverra vel risus sit amet, commodo interdum lorem. Proin ut aliquet arcu. Vivamus molestie egestas erat vel lobortis. Vivamus ullamcorper felis ac ullamcorper efficitur. Donec eget velit dui. Suspendisse semper enim eu quam placerat, eu pretium turpis gravida. Nulla faucibus semper nisl at accumsan. Donec tempor tincidunt urna non imperdiet. Pellentesque vehicula aliquam risus et vulputate. Proin consequat in est quis malesuada. Proin tincidunt felis non libero tincidunt facilisis. Sed scelerisque iaculis erat, at dapibus tortor imperdiet vel. Proin non venenatis leo, quis convallis dui. Curabitur id rutrum risus.</p>
         </div>
         <div class="right">
-            <div class='login'>
-                <form action="usuario/login.php" method="POST" class="form">
-                    <div class="div-email">
-                        <label for="email">E-mail: </label>
-                        <input type="email" class="texto" name="email" required>
-                    </div><br>
+            <?php if (isset($_SESSION['id'])){ ?>
+                <div>
+                    <h3>Seja bem vindo <?=$_SESSION['nome']?></h3>
+                </div>
+                <?php }else{ ?>
+                <div class='login'>
+                    <form action="usuario/login.php" method="POST" class="form">
+                        <div class="div-email">
+                            <label for="email">E-mail: </label>
+                            <input type="email" class="texto" name="email" required>
+                        </div><br>
 
-                    <div class="div-senha">
-                        <label for="senha">Senha: </label>
-                        <input type="password"  class="texto" name="senha" required>
-                    </div><br>
+                        <div class="div-senha">
+                            <label for="senha">Senha: </label>
+                            <input type="password"  class="texto" name="senha" required>
+                        </div><br>
 
-                    <div class="acessar">
-                        <input type="submit" class="botao" name="login" value="Login">
-                    </div><br>
-                </form>
-            </div>
+                        <div class="acessar">
+                            <input type="submit" class="botao" name="login" value="Login">
+                        </div><br>
+                    </form>
+                    <div class="linha"></div>
+                    <a href="usuario/cadastro.php"><button class="botaoC">Cadastrar-se</button></a>
+                </div>
+            <?php } ?>
         </div>
     </div>
 <?php include("includes/footer.php") ?>

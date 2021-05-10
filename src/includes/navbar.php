@@ -25,9 +25,11 @@
             <li>
                 <a class="nav-link active" aria-current="page" href="/contador/">Contador</a>
             </li>
-            <li>
-                <a class="nav-link active" aria-current="page" href="/usuario/sair.php">Sair</a>
-            </li>
+            <?php if (isset($_SESSION['id'])) { ?>
+                <li>
+                    <a class="nav-link active" aria-current="page" href="/usuario/sair.php">Sair</a>
+                </li>
+            <?php } ?>
         </ul>
         </div>
     </div>

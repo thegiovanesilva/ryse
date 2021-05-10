@@ -10,7 +10,7 @@
                 require_once ("../classes/Usuario.php");
                 $usu = new Usuario();
                 $ret = $usu->cadastrar($_POST['nome'], $_POST['email'], $_POST['senha']);
-                if ($ret) header("Location: login.php");
+                if ($ret) header("Location: /");
                 else $msg = "Ocorreu um erro no cadastro. Tente novamente"; 
             }else{
                 $msg = "As senhas não coincidem";
@@ -62,7 +62,7 @@
                         </div></br>
 
                         <div class="form-field center-align">
-                            <input class="btn-large red" type="reset" name="cancelar" value="Cancelar" onClick="JavaScript: window.history.back();">
+                            <input class="btn-large red" type="reset" name="cancelar" value="Cancelar">
                             <input class="btn-large red" type="submit" name="login" value="Confirmar">
                         </div><br>
                     </form>
