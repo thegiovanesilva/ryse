@@ -23,6 +23,9 @@
             <li>
                 <a class="nav-link active" aria-current="page" href="/contador/">Contador</a>
             </li>
+            <li>
+                <a class="nav-link active" aria-current="page" href="/usuario/sair.php">Sair</a>
+            </li>
         </ul>
         </div>
     </div>

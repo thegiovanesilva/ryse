@@ -1,47 +1,74 @@
-<?php
-session_start();
+<?php 
+    $msg = "";
 
-function valid_email($str) {
-    return (!preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? FALSE : TRUE;
-}
+    $nome = isset($_POST['nome'])? $_POST['nome'] : "";
+    $email = isset($_POST['email'])? $_POST['email'] : "";
 
-$message = "Error";
-$img = "../imgs/error.png";
-
-if (isset($_SESSION['id'])) {
-    header("Location: /");
-}
-
-if (!isset($_POST['email']) || !valid_email($_POST['email'])) {
-    $message = "Endereço de email inválido";
-}
-else if (isset($_POST['senha']) && isset($_POST['nome'])) {
-    require_once ("../classes/Usuario.php");
-
-    $usuario = new Usuario();
-
-    $ret = $usuario->cadastrar($_POST['nome'], $_POST['email'], $_POST['senha']);
-    if ($ret == "Ok") {
-        $message = "Cadastro efetuado com sucesso";
-        $img = "../imgs/noterror.png";
+    if (isset($_POST['email']) && isset($_POST['nome']) && isset($_POST['senha'])){
+        if (isset($_POST['senhaR'])){
+            if ($_POST['senha'] == $_POST['senhaR']){
+                require_once ("../classes/Usuario.php");
+                $usu = new Usuario();
+                $ret = $usu->cadastrar($_POST['nome'], $_POST['email'], $_POST['senha']);
+                if ($ret) header("Location: login.php");
+                else $msg = "Ocorreu um erro no cadastro. Tente novamente"; 
+            }else{
+                $msg = "As senhas não coincidem";
+            }
+        }else{
+            $msg = "É necessario confirmar a sua senha";
+        }
     }
-    else {
-        $message = "Erro no cadastro";
-    }
-}
-
-header("refresh:3; url=/");
 ?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8">
 
-<?php include("../includes/header.php") ?>
+    <title>Ryze - Cadastro</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="row login">
+        <div class="col s12 l4 offset-l4">
+            <div class="card">
+                <div class="card-action red white-text">
+                    <h3>Cadastro</h3>
+                </div>
+                <div class="card-content">
+                    <form action="" method="POST">
+                        <div class="form-field">
+                            <label for="email">E-mail</label>
+                            <input type="email" name="email" value="<?=$email?>" required>
+                        </div><br>
 
-<link href="../tarefas/criar.css" rel="stylesheet"/>
+                        <div class="form-field">
+                            <label for="senha">Nome</label>
+                            <input type="text" name="nome" value="<?=$nome?>" required>
+                        </div><br>
 
-<link rel="stylesheet" href="criar.css"/>
+                        <div class="form-field">
+                            <label for="senha">Senha</label>
+                            <input type="password" name="senha" required>
+                        </div><br>
 
-<main class="confirma">
-    <img src=<?=$img?> id="img">
-    <p id="texto"><?=$message?></p>        
-</main>
-   
-<?php include("../includes/footer.php") ?>
+                        <div class="form-field">
+                            <label for="senha">Repita sua senha</label>
+                            <input type="password" name="senhaR" required>
+                        </div><br>
+
+                        <div class=form-field>
+                            <span id="erroLogin"><?=$msg?></span>
+                        </div></br>
+
+                        <div class="form-field center-align">
+                            <input class="btn-large red" type="reset" name="cancelar" value="Cancelar" onClick="JavaScript: window.history.back();">
+                            <input class="btn-large red" type="submit" name="login" value="Confirmar">
+                        </div><br>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="visualizar.css">
 <?php include("../includes/header.php") ?>
 <?php
-    session_start();
+    @session_start();
     if (!isset($_SESSION['id'])) {
         header("Location: /");
     }

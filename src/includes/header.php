@@ -1,10 +1,5 @@
 <?php 
-    @session_start();
     date_default_timezone_set('America/Sao_Paulo'); 
-    
-    if (!isset($_SESSION['email'])) {
-        header("Location: /login.php");    
-    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -21,7 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- Icons Materialize -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+
     <!-- Icone -->
     <link rel="icon" type="imagem/png" href="./imgs/icon.png" />
     <title>Ryse - Estudos em uma mão</title>
