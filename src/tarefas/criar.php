@@ -42,7 +42,7 @@
         <div id="data-limite-div">
             <div class="form-group"> <!-- Date input -->
                 <label class="control-label" for="date">Date</label>
-                <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text"/>
+                <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="text" required/>
             </div>
         </div>
 

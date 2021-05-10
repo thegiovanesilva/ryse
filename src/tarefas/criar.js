@@ -17,9 +17,11 @@ alternar_prazo = () => {
     if (recor) {
         $("#data-limite-div").attr("hidden",true);
         $("#prazo-recorrente-div").removeAttr('hidden');
+        $("#date").removeAttr("required");
     }
     if (lim) {
         $("#data-limite-div").removeAttr('hidden');
         $("#prazo-recorrente-div").attr("hidden",true);
+        $("#date").attr("required",true);
     }
 }
