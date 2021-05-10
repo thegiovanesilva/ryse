@@ -1,4 +1,11 @@
-<?php date_default_timezone_set('America/Sao_Paulo'); ?>
+<?php 
+    @session_start();
+    date_default_timezone_set('America/Sao_Paulo'); 
+    
+    if (!isset($_SESSION['email'])) {
+        header("Location: /login.php");    
+    }
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

@@ -16,10 +16,10 @@ class Usuario {
         $result = $this->conexao->execute($stmt);
         if ($result==-1) {
             $this->conexao->query("rollback");
-            return "Erro";
+            return false;
         }
         $this->conexao->query("commit");
-        return "Ok";
+        return true;
     }
 
     function autenticar($email, $senha) {
