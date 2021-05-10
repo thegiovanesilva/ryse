@@ -21,7 +21,22 @@ class Usuario {
         $this->conexao->query("commit");
         return "Ok";
     }
+
+    function autenticar($email, $senha) {
+        $stmt = $this->conexao->prepare("SELECT * FROM usuarios WHERE email=?");
+        $stmt->bind_param("s",$email);
+        $result = $this->conexao->execute($stmt);
+
+        if (!isset($result) || count($result)==0 || count($result)>1) {
+            return False;
+        }
+        if (password_verify($senha, $result[0]['senha'])) {
+            return $result[0];
+        }
+        return False;
+    }
 }
 
 //$usu = new Usuario();
 //echo $usu->cadastrar("José", "jose@jose.com", "jose123");
+//var_dump($usu->autenticar("jose@jose.com", "jose123"));

@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS usuarios;
 CREATE TABLE usuarios (
     id SERIAL,
     nome VARCHAR(50) NOT NULL,
-    email VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
     senha TEXT NOT NULL,
     CONSTRAINT pk_usuarios PRIMARY KEY (id)
 );
@@ -34,16 +34,18 @@ CREATE TABLE tarefas (
 );
 
 CREATE TABLE tarefa_reps (
+    idusu BIGINT UNSIGNED NOT NULL,
     tarefa_id BIGINT UNSIGNED NOT NULL,
     dia CHAR(3) NOT NULL,
-    CONSTRAINT pk_tarefas_reps PRIMARY KEY (tarefa_id,dia),
-    CONSTRAINT fk_tarefas_reps_tarefas FOREIGN KEY (tarefa_id) REFERENCES tarefas (id)
+    CONSTRAINT pk_tarefas_reps PRIMARY KEY (idusu,tarefa_id,dia),
+    CONSTRAINT fk_tarefas_reps_tarefas FOREIGN KEY (idusu, tarefa_id) REFERENCES tarefas (idusu, id)
 );
 
 CREATE TABLE intervalos (
+    idusu BIGINT UNSIGNED NOT NULL,
     tarefa_id BIGINT UNSIGNED NOT NULL,
     dia DATE NOT NULL,
     quantidade INTEGER NOT NULL,
-    CONSTRAINT pk_intervalo PRIMARY KEY (tarefa_id,dia),
-    CONSTRAINT fk_tarefas_intervalos FOREIGN KEY (tarefa_id) REFERENCES tarefas (id)
+    CONSTRAINT pk_intervalo PRIMARY KEY (idusu,tarefa_id,dia),
+    CONSTRAINT fk_tarefas_intervalos FOREIGN KEY (idusu, tarefa_id) REFERENCES tarefas (idusu, id)
 );

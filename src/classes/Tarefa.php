@@ -7,20 +7,20 @@ class Tarefa {
         $this->conexao = new BD();
     }
 
-    function novaTarefa($nome, $descricao, $data_limite, $repeticao, $intervalos_estimados) {
+    function novaTarefa($idusu, $nome, $descricao, $data_limite, $repeticao, $intervalos_estimados) {
         //Tarefa com prazo recorente
         if (count($repeticao)) {
             $this->conexao->query("begin");
-            $stmt = $this->conexao->prepare("INSERT INTO tarefas (nome, descricao, intervalos_estimados) VALUES (?, ?, ?)");
-            $stmt->bind_param("ssi",$nome,$descricao,$intervalos_estimados);
+            $stmt = $this->conexao->prepare("INSERT INTO tarefas (idusu, nome, descricao, intervalos_estimados) VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("issi",$idusu,$nome,$descricao,$intervalos_estimados);
             $result = $this->conexao->execute($stmt, 1);
             if ($result==-1) {
                 $this->conexao->query("rollback");
                 return "Falha no cadastro";
             }
             foreach ($repeticao as $rep) {
-                $stmt = $this->conexao->prepare("INSERT INTO tarefa_reps (tarefa_id,dia) VALUES (?,?)");
-                $stmt->bind_param("is",$result,$rep);
+                $stmt = $this->conexao->prepare("INSERT INTO tarefa_reps (idusu,tarefa_id,dia) VALUES (?,?,?)");
+                $stmt->bind_param("iis",$idusu,$result,$rep);
                 $result1 = $this->conexao->execute($stmt);
                 if ($result1==-1) {
                     $this->conexao->query("rollback");
@@ -33,42 +33,42 @@ class Tarefa {
 
         //Tarefa com prazo único
         else {
-            $stmt = $this->conexao->prepare("INSERT INTO tarefas (nome, descricao, data_limite, intervalos_estimados) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("sssi",$nome,$descricao,$data_limite,$intervalos_estimados);
+            $stmt = $this->conexao->prepare("INSERT INTO tarefas (idusu, nome, descricao, data_limite, intervalos_estimados) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("isssi",$idusu,$nome,$descricao,$data_limite,$intervalos_estimados);
             $result = $this->conexao->execute($stmt);
             return $result!=-1 ? "Tarefa criada com sucesso" : "Falha no cadastro";
         }
     }
 
-    function apagarTarefa($id) {
-        $stmt = $this->conexao->prepare("DELETE FROM tarefa_reps WHERE tarefa_id=?");
-        $stmt->bind_param("i",$id);
+    function apagarTarefa($idusu,$id) {
+        $stmt = $this->conexao->prepare("DELETE FROM tarefa_reps WHERE idusu=? AND tarefa_id=?");
+        $stmt->bind_param("ii",$idusu,$id);
         $result = $this->conexao->execute($stmt);
         if ($result==-1) return "Falha ao apagar";
-        $stmt = $this->conexao->prepare("DELETE FROM intervalos WHERE tarefa_id=?");
-        $stmt->bind_param("i",$id);
+        $stmt = $this->conexao->prepare("DELETE FROM intervalos WHERE idusu=? AND tarefa_id=?");
+        $stmt->bind_param("ii",$idusu,$id);
         $result = $this->conexao->execute($stmt);
         if ($result==-1) return "Falha ao apagar";
-        $stmt = $this->conexao->prepare("DELETE FROM tarefas WHERE id=?;");
-        $stmt->bind_param("i",$id);
+        $stmt = $this->conexao->prepare("DELETE FROM tarefas WHERE idusu=? AND id=?;");
+        $stmt->bind_param("ii",$idusu,$id);
         $result = $this->conexao->execute($stmt);
         if ($result==-1) return "Falha ao apagar";
         return "Tarefa apagada com sucesso!";
     }
 
-    function atualizarTarefa($id, $nome, $descricao, $data_limite, $data_fim, $repeticao, $intervalos_estimados) {
+    function atualizarTarefa($idusu, $id, $nome, $descricao, $data_limite, $data_fim, $repeticao, $intervalos_estimados) {
         $this->conexao->query("begin");
         //atualiza tarefa simples
-        $stmt = $this->conexao->prepare("UPDATE tarefas SET nome=?,descricao=?,data_limite=?,data_fim=?,intervalos_estimados=? WHERE id=?");
-        $stmt->bind_param("ssssii", $nome, $descricao, $data_limite, $data_fim, $intervalos_estimados, $id);
+        $stmt = $this->conexao->prepare("UPDATE tarefas SET nome=?,descricao=?,data_limite=?,data_fim=?,intervalos_estimados=? WHERE idusu=? AND id=?");
+        $stmt->bind_param("ssssiii", $nome, $descricao, $data_limite, $data_fim, $intervalos_estimados, $idusu, $id);
         $result = $this->conexao->execute($stmt);
         if ($result==-1) {
             return "Falha ao atualizar";
             $this->conexao->query("rollback");
         }
         //remove antigas repetições
-        $stmt = $this->conexao->prepare("DELETE FROM tarefa_reps WHERE tarefa_id=?");
-        $stmt->bind_param("i", $id);
+        $stmt = $this->conexao->prepare("DELETE FROM tarefa_reps WHERE idusu=? AND tarefa_id=?");
+        $stmt->bind_param("ii", $idusu,$id);
         $result = $this->conexao->execute($stmt);
         if ($result==-1) {
             return "Falha ao atualizar";
@@ -76,8 +76,8 @@ class Tarefa {
         }
         //cadastra novas repetições
         foreach ($repeticao as $rep) {
-            $stmt = $this->conexao->prepare("INSERT INTO tarefa_reps (tarefa_id,dia) VALUES (?,?)");
-            $stmt->bind_param("is",$id,$rep);
+            $stmt = $this->conexao->prepare("INSERT INTO tarefa_reps (idusu,tarefa_id,dia) VALUES (?,?,?)");
+            $stmt->bind_param("iis",$idusu,$id,$rep);
             $result = $this->conexao->execute($stmt);
             if ($result==-1) {
                 $this->conexao->query("rollback");
@@ -88,13 +88,13 @@ class Tarefa {
         return "Tarefa atualizada com sucesso!";
     }
 
-    function buscarTarefas($id=NULL) {
+    function buscarTarefas($idusu,$id=NULL) {
         if ($id==NULL) {
-            $ret = $this->conexao->select("SELECT t.*, tr.*, i.dia AS intervalo_dia, i.quantidade AS intervalo_quantidade FROM tarefas t LEFT JOIN tarefa_reps tr ON tr.tarefa_id=t.id LEFT JOIN intervalos i ON i.tarefa_id=t.id;");
+            $ret = $this->conexao->select("SELECT t.*, tr.*, i.dia AS intervalo_dia, i.quantidade AS intervalo_quantidade FROM tarefas t LEFT JOIN tarefa_reps tr ON tr.tarefa_id=t.id LEFT JOIN intervalos i ON i.tarefa_id=t.id WHERE t.idusu=".$idusu.";");
         }
         else {
-            $stmt = $this->conexao->prepare("SELECT t.*, tr.*, i.dia AS intervalo_dia, i.quantidade AS intervalo_quantidade FROM tarefas t LEFT JOIN tarefa_reps tr ON tr.tarefa_id=t.id LEFT JOIN intervalos i ON i.tarefa_id=t.id WHERE t.id=?;");
-            $stmt->bind_param("i",$id);
+            $stmt = $this->conexao->prepare("SELECT t.*, tr.*, i.dia AS intervalo_dia, i.quantidade AS intervalo_quantidade FROM tarefas t LEFT JOIN tarefa_reps tr ON tr.tarefa_id=t.id LEFT JOIN intervalos i ON i.tarefa_id=t.id WHERE t.idusu=? AND t.id=?;");
+            $stmt->bind_param("ii",$idusu,$id);
             $ret = $this->conexao->execute($stmt);
             if ($ret==-1) {
                 return "Falha na consulta";
@@ -114,7 +114,7 @@ class Tarefa {
                     $result[$r["id"]]["repete"][]=$r["dia"];
                 }
 
-                $ret2 = $this->conexao->select("SELECT * FROM intervalos WHERE tarefa_id=".$r["id"]." AND dia='".date("Y-m-d")."';");
+                $ret2 = $this->conexao->select("SELECT * FROM intervalos WHERE idusu=".$idusu."tarefa_id=".$r["id"]." AND dia='".date("Y-m-d")."';");
                 if (!empty($ret2)) {
                     $result[$r["id"]]["intervalos"] = $ret2[0]["quantidade"];
                 }
@@ -126,23 +126,23 @@ class Tarefa {
         return $result;
     }
 
-    function cadastraIntervalo($tarefa, $dia) {
-        $stmt = $this->conexao->prepare("SELECT * FROM intervalos WHERE tarefa_id=? AND dia=?;");
-        $stmt->bind_param("is", $tarefa, $dia);
+    function cadastraIntervalo($idusu, $tarefa, $dia) {
+        $stmt = $this->conexao->prepare("SELECT * FROM intervalos WHERE idusu=? AND tarefa_id=? AND dia=?;");
+        $stmt->bind_param("iis", $idusu, $tarefa, $dia);
         $result = $this->conexao->execute($stmt);
         if (empty($result)) {
-            $stmt = $this->conexao->prepare("INSERT INTO intervalos (tarefa_id,dia,quantidade) VALUES (?, ?, ?);");
+            $stmt = $this->conexao->prepare("INSERT INTO intervalos (idusu,tarefa_id,dia,quantidade) VALUES (?, ?, ?, ?);");
             $t = 1;
-            $stmt->bind_param("isi", $tarefa, $dia, $t);
+            $stmt->bind_param("iisi", $idusu, $tarefa, $dia, $t);
             $result = $this->conexao->execute($stmt);
             if ($result!=-1) {
                 return "Ok";
             }
             return "Falha";
         }
-        $stmt = $this->conexao->prepare("UPDATE intervalos SET quantidade=? WHERE tarefa_id=? AND dia=?;");
+        $stmt = $this->conexao->prepare("UPDATE intervalos SET quantidade=? WHERE idusu=? AND tarefa_id=? AND dia=?;");
         $t = $result[0]["quantidade"]+1;
-        $stmt->bind_param("iis", $t, $tarefa, $dia);
+        $stmt->bind_param("iiis", $idusu, $t, $tarefa, $dia);
         $result = $this->conexao->execute($stmt);
         if ($result>0) {
             return "Ok";
@@ -151,10 +151,10 @@ class Tarefa {
     }
 }
 
-//$tar = new Tarefa();
-//print($tar->novaTarefa("Tarefa teste", "Teste teste teste", date("2021-03-29"), ['seg'], 1));
-//print($tar->apagarTarefa(1));
-//print($tar->atualizarTarefa(1, "Tarefa teste 2", "Teste teste teste", NULL, date("2021-03-29"), ['ter','qua'], 3));
-//print_r($tar->buscarTarefas());
-//print_r($tar->buscarTarefas(7));
-//print_r($tar->cadastraIntervalo(1, date('2021-04-26')));
+$tar = new Tarefa();
+//print($tar->novaTarefa(1, "Tarefa teste", "Teste teste teste", date("2021-03-29"), ['seg'], 1));
+//print($tar->apagarTarefa(1,3));
+//print($tar->atualizarTarefa(1, 3, "Tarefa teste 2", "Teste teste teste", NULL, date("2021-03-29"), ['ter','qua'], 3));
+//print_r($tar->buscarTarefas(1));
+//print_r($tar->buscarTarefas(1, 7));
+//print_r($tar->cadastraIntervalo(1, 3, date('2021-04-26')));

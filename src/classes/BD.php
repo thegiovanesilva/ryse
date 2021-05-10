@@ -17,6 +17,7 @@ class BD {
 
     function select($sql) {
         $retorno = mysqli_query($this->conexao, $sql);
+        if ($retorno==false) return [];
         $arrayResultados = array();   
         if (mysqli_num_rows($retorno) > 0) {
             while($linha = mysqli_fetch_assoc($retorno)) {
@@ -32,9 +33,9 @@ class BD {
         $id = $this->conexao->insert_id;
         $ar = $stmt->affected_rows;
 
-        if ($ar==-1) {
+        /*if ($ar==-1) {
             print_r($stmt->error);
-        }
+        }*/
 
         $stmt->close();
 
