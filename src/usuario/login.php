@@ -37,9 +37,9 @@ if (isset($_POST['email']) && isset($_POST['senha'])) {
             $message = "CPF ou senha não cadastrados.";
         }
     }
-
-    header("refresh:3; url=/");
 }
+
+header("refresh:3; url=/");
 ?>
 
 <?php include("../includes/header.php") ?>
