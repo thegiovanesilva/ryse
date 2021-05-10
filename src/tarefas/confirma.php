@@ -1,6 +1,11 @@
 <link href="criar.css" rel="stylesheet"/>
 
 <?php
+    session_start();
+    if (!isset($_SESSION['id'])) {
+        header("Location: /");
+    }
+    
     require_once("../classes/Tarefa.php");
 
     $tarefa = new Tarefa();
@@ -32,14 +37,14 @@
 
     // Se o que vier do html for uma data-recorrente, então envia null como prazo limite
     // Se o que vier do html for uma data-limite, então envia null como prazo recorrente
-    if ($valida) { $string_retorno = (is_array($prazo)) ? $tarefa->novaTarefa($nome, $descricao, NULL, $prazo, $intervalos) : $tarefa->novaTarefa($nome, $descricao, $prazo, [], $intervalos); }
+    if ($valida) { $string_retorno = (is_array($prazo)) ? $tarefa->novaTarefa($_SESSION['id'], $nome, $descricao, NULL, $prazo, $intervalos) : $tarefa->novaTarefa($_SESSION['id'], $nome, $descricao, $prazo, [], $intervalos); }
 
     if ($string_retorno == "Tarefa criada com sucesso"){
         $img = "../imgs/noterror.png";
     }else{
         $img = "../imgs/error.png";
     }
-    // header('refresh:3; url=visualizar.php');
+    header('refresh:3; url=visualizar.php');
 
 ?>
 <?php include("../includes/header.php") ?>

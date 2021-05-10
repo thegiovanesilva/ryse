@@ -1,4 +1,9 @@
 <?php
+    session_start();
+    if (!isset($_SESSION['id'])) {
+        header("Location: /");
+    }
+    
     require_once("../classes/Tarefa.php");
 
     $tarefa = new Tarefa();
@@ -6,7 +11,7 @@
     // Validação de dados
     $id = $_GET['id'];
 
-    $t_ret = $tarefa->buscarTarefas($id);
+    $t_ret = $tarefa->buscarTarefas($_SESSION['id'], $id);
 
     if ($t_ret == "Falha na consulta" || !count($t_ret)){   
         header("Location: visualizar.php");

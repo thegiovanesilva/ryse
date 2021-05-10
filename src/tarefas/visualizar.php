@@ -1,10 +1,14 @@
 <link rel="stylesheet" href="visualizar.css">
 <?php include("../includes/header.php") ?>
 <?php
-
+    session_start();
+    if (!isset($_SESSION['id'])) {
+        header("Location: /");
+    }
+    
     require_once ("../classes/Tarefa.php");
     $tarefa = new Tarefa();
-    $tarefas = $tarefa->buscarTarefas();
+    $tarefas = $tarefa->buscarTarefas($_SESSION['id']);
 
     function impressao($value, $id, $today, $fim, $tarefasDia = false){
         $tmp = array_filter($value, function($valor) {

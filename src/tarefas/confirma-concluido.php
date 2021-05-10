@@ -1,4 +1,9 @@
 <?php
+    session_start();
+    if (!isset($_SESSION['id'])) {
+        header("Location: /");
+    }
+    
     require_once("../classes/Tarefa.php");
 
     if (!isset($_GET['id'])) {
@@ -25,7 +30,7 @@
 
     // Se o que vier do html for uma data-recorrente, então envia null como prazo limite
     // Se o que vier do html for uma data-limite, então envia null como prazo recorrente
-    $string_retorno = (is_array($prazo)) ? $tarefa->atualizarTarefa($id, $nome, $descricao, NULL, $data_fim, $prazo, $intervalos) : $tarefa->atualizarTarefa($id, $nome, $descricao, $prazo, $data_fim, [], $intervalos);
+    $string_retorno = (is_array($prazo)) ? $tarefa->atualizarTarefa($_SESSION['id'], $id, $nome, $descricao, NULL, $data_fim, $prazo, $intervalos) : $tarefa->atualizarTarefa($_SESSION['id'], $id, $nome, $descricao, $prazo, $data_fim, [], $intervalos);
 
     if ($string_retorno == "Tarefa atualizada com sucesso!"){
         $img = "../imgs/noterror.png";

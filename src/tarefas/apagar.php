@@ -1,6 +1,11 @@
 <link href="criar.css" rel="stylesheet"/>
 
 <?php
+    session_start();
+    if (!isset($_SESSION['id'])) {
+        header("Location: /");
+    }
+
     require_once("../classes/Tarefa.php");
 
     $tarefa = new Tarefa();
@@ -8,7 +13,7 @@
     // Validação de dados
     $id = $_GET['id'];
 
-    $string_retorno = $tarefa->apagarTarefa($id);
+    $string_retorno = $tarefa->apagarTarefa($_SESSION['id'], $id);
 
     if ($string_retorno == "Tarefa apagada com sucesso!"){
         $img = "../imgs/noterror.png";
