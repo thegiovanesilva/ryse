@@ -108,6 +108,7 @@ class Tarefa {
                 $result[$r["id"]]["descricao"]=$r["descricao"];
                 $result[$r["id"]]["data_limite"]=$r["data_limite"];
                 $result[$r["id"]]["data_fim"]=$r["data_fim"];
+                $result[$r["id"]]["intervalos"] = $r["intervalo_quantidade"];
                 $result[$r["id"]]["intervalos_estimados"]=$r["intervalos_estimados"];
                 if (!empty($r["dia"])) {
                     $result[$r["id"]]["repete"]=array();
@@ -142,7 +143,7 @@ class Tarefa {
         }
         $stmt = $this->conexao->prepare("UPDATE intervalos SET quantidade=? WHERE idusu=? AND tarefa_id=? AND dia=?;");
         $t = $result[0]["quantidade"]+1;
-        $stmt->bind_param("iiis", $idusu, $t, $tarefa, $dia);
+        $stmt->bind_param("iiis", $t, $idusu, $tarefa, $dia);
         $result = $this->conexao->execute($stmt);
         if ($result>0) {
             return "Ok";
