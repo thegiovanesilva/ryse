@@ -13,7 +13,11 @@
     $id = $_GET['id'];
 
     $tarefa = new Tarefa();
-    $tarefas = $tarefa->buscarTarefas($id);
+    $tarefas = $tarefa->buscarTarefas($_SESSION['id'], $id);
+    
+    if (!isset($tarefas[$id])){
+        header("Location: /");
+    }
 
     // Validação de dados
     $nome = $tarefas[$id]['nome'];
