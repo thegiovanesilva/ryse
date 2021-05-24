@@ -108,14 +108,13 @@ class Tarefa {
                 $result[$r["id"]]["descricao"]=$r["descricao"];
                 $result[$r["id"]]["data_limite"]=$r["data_limite"];
                 $result[$r["id"]]["data_fim"]=$r["data_fim"];
-                $result[$r["id"]]["intervalos"] = $r["intervalo_quantidade"];
                 $result[$r["id"]]["intervalos_estimados"]=$r["intervalos_estimados"];
                 if (!empty($r["dia"])) {
                     $result[$r["id"]]["repete"]=array();
                     $result[$r["id"]]["repete"][]=$r["dia"];
                 }
 
-                $ret2 = $this->conexao->select("SELECT * FROM intervalos WHERE idusu=".$idusu."tarefa_id=".$r["id"]." AND dia='".date("Y-m-d")."';");
+                $ret2 = $this->conexao->select("SELECT * FROM intervalos WHERE idusu=".$idusu." AND tarefa_id=".$r["id"]." AND dia='".date("Y-m-d")."';");
                 if (!empty($ret2)) {
                     $result[$r["id"]]["intervalos"] = $ret2[0]["quantidade"];
                 }
